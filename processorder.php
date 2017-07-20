@@ -1,4 +1,3 @@
-
 <?php
 echo '1111'.'<br>';
     $tireqty = $_REQUEST['tireqty'];
@@ -77,8 +76,27 @@ echo '1111'.'<br>';
    $address = $_POST["address"];
 
    $DOCUMENT_ROOT = $_SERVER['DOCUMENT_ROOT'];
-   echo "$DOCUMENT_ROOT";
+   echo "$DOCUMENT_ROOT<br/>";
 
-   $fp = fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'ab');
-
+   @ $fp = fopen("$DOCUMENT_ROOT/../orders/orders.txt", 'ab');
+   if(!$fp){
+      echo "<p><strong> your order could not be processed at this time<br/>";
+      exit;
+   }
+   $writeStr = $totalqty."totalqty \t".$address."address \t";
+   echo "$writeStr";
+   fwrite($fp, $writeStr, strlen($writeStr));
+   fclose($fp);
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+   <title></title>
+</head>
+<body>
+   <form action="vieworders.php">
+      <input type="submit" value="submit">
+   </form>
+</body>
+</html>
